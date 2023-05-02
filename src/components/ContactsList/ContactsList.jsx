@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Contact, DeleteContactBtn } from "./ContactsList.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { getContacts, getFilter, getisLoading, getError } from "../../redux/selectors";
-import { removeContact } from "../../redux/contactsSlice/contactsSlice";
+// import { deleteContact } from "../../redux/contactsSlice/contactsSlice";
 import { fetchContacts } from "redux/operations";
 
 
@@ -16,9 +16,9 @@ const ContactsList = () => {
 
     const filterValue = useSelector(getFilter);
     console.log(contacts);
-    useEffect(() => {
-        dispatch(fetchContacts());
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchContacts());
+    // }, [dispatch])
 
     // const getFilteredContacts = () => {
     //     return contacts
@@ -30,26 +30,27 @@ const ContactsList = () => {
         <>
             {isLoading && <p>Loading tasks...</p>}
             {error && <p>{error}</p>}
-            {/* {contacts.length > 0 &&
+            {contacts.length > 0 &&
                 <ul>
                     {
-                        getFilteredContacts().map(({ id, name, number }) => {
+                        contacts.map(({ id, name, number }) => {
                             return (
                                 <Contact key={id}>
                                     <span>{name}</span>
                                     <span>{number}</span>
                                     <DeleteContactBtn
                                         type="button"
-                                        onClick={() => {
-                                            dispatch(removeContact(id));
-                                        }}
+                                        // onClick={() => {
+                                        //     dispatch(removeContact(id));
+                                        // }
+                                    // }
                                     >❌</DeleteContactBtn>
                                 </Contact>
                             )
                         })
                     }
                 </ul>            
-            } */}
+            }
         </>
     )
 };
