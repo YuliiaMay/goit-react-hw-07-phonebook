@@ -4,14 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 // import { createContact } from "../../redux/contactsSlice/contactsSlice";
 import { selectContacts } from "redux/selectors";
 import { useState } from "react";
+import { addContact } from "redux/operations";
 
 const ContactsForm = () => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
     const dispatch = useDispatch();
-
-
+    
     const contacts = useSelector(selectContacts);
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -28,7 +29,7 @@ const ContactsForm = () => {
             number
         };
 
-        // dispatch(addContact(newContact));
+        dispatch(addContact(newContact));
 
         reset();
     };
