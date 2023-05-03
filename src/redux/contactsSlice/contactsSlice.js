@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
 import { fetchContacts, addContact, deleteContact } from "redux/operations";
 
 // const contactsInitialState = {
@@ -28,7 +26,7 @@ const contactsSlice = createSlice({
         [fetchContacts.fulfilled](state, {payload}) {
             state.isLoading = false;
             state.error = null;
-            state.items.push(payload);            
+            state.items = payload;            
         },
         [fetchContacts.rejected](state, {payload}) {
             state.isLoading = false;
@@ -52,7 +50,8 @@ const contactsSlice = createSlice({
         [deleteContact.fulfilled](state, {payload}) {
             state.isLoading = false;
             state.error = null;
-            state.items = payload; 
+            console.log(payload);
+            state.items = state.items.filter((contact) => payload.id === contact.id); 
         },
         [deleteContact.rejected](state, {payload}) {
             state.isLoading = false;
@@ -80,11 +79,6 @@ const contactsSlice = createSlice({
     //     },
     // }
 });
-
-const persistConfig = {
-    key: 'contacts',
-    storage
-};
 
 
 // Генератори екшенів
