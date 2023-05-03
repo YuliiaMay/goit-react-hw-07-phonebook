@@ -15,15 +15,18 @@ import { fetchContacts, addContact, deleteContact } from "redux/operations";
 const contactsSlice = createSlice({
     name: "contacts",
     initialState: {
-        items: [],
-        isLoading: false,
-        error: null
+
+            items: [],
+            isLoading: false,
+            error: null
+
     },
     extraReducers: {
         [fetchContacts.pending](state, action) {
             state.isLoading = true;
         },
-        [fetchContacts.fulfilled](state, {payload}) {
+        [fetchContacts.fulfilled](state, { payload }) {
+
             state.isLoading = false;
             state.error = null;
             state.items = payload;            
@@ -47,11 +50,11 @@ const contactsSlice = createSlice({
         [deleteContact.pending](state, action) {
             state.isLoading = true;
         },
-        [deleteContact.fulfilled](state, {payload}) {
+        [deleteContact.fulfilled](state, { payload }) {
+            console.log(payload);
             state.isLoading = false;
             state.error = null;
-            console.log(payload);
-            state.items = state.items.filter((contact) => payload.id === contact.id); 
+            state.items = state.items.filter((contact) => contact.id !== payload); 
         },
         [deleteContact.rejected](state, {payload}) {
             state.isLoading = false;

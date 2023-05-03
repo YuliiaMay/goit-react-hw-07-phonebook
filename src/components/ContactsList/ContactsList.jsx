@@ -1,7 +1,7 @@
 import React from "react";
 import { Contact, DeleteContactBtn } from "./ContactsList.styled";
 import { useDispatch, useSelector} from "react-redux";
-import { selectContacts } from "../../redux/selectors";
+import { selectContacts, selectFilter } from "../../redux/selectors";
 import { deleteContact } from "redux/operations";
 
 
@@ -9,19 +9,15 @@ import { deleteContact } from "redux/operations";
 
 const ContactsList = () => {
     const dispatch = useDispatch();
-
     const contacts = useSelector(selectContacts);
-
-    // const filterValue = useSelector(getFilter);
+    const filterValue = useSelector(selectFilter);
     // console.log(contacts);
 
 
-    // const getFilteredContacts = () => {
-    //     return contacts
-    //         .filter(contact => contact.name.toLowerCase().includes(filterValue))
-    // }
-
-    const handleDelete = (id) => dispatch(deleteContact(id));
+    const getFilteredContacts = () => {
+        return contacts
+            .filter(contact => contact.name.toLowerCase().includes(filterValue))
+    }
 
 
 
@@ -29,14 +25,14 @@ const ContactsList = () => {
         <>
             <ul>
                 {
-                    contacts.map(({ id, name, number }) => {
+                    getFilteredContacts().map(({ id, name, number }) => {
                         return (
                             <Contact key={id}>
                                 <span>{name}</span>
                                 <span>{number}</span>
                                 <DeleteContactBtn
                                     type="button"
-                                    onClick={handleDelete}
+                                    onClick={() => dispatch(deleteContact(id))}
                                 
                                 >❌</DeleteContactBtn>
                             </Contact>
