@@ -6,8 +6,6 @@ import { setFilter } from "redux/filterSlice/filterSlice";
 
 const ContactsFilter = () => {
     const dispatch = useDispatch();
-
-
     const onFilterChange = ({target: {value}}) => {
         const filterValue = value;
         dispatch(setFilter(filterValue));

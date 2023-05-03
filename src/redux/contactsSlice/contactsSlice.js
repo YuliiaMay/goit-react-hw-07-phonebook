@@ -1,4 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { type } from "@testing-library/user-event/dist/type";
 import { fetchContacts, addContact, deleteContact } from "redux/operations";
 
 // const handlePending = state => {
@@ -7,8 +8,11 @@ import { fetchContacts, addContact, deleteContact } from "redux/operations";
 
 // const handleRejected= (state, {payload}) => {
 //     state.isLoading = false;
-//     state.error = payload;   
+//     state.error = payload;
 // };
+
+const extraOperations = [fetchContacts, addContact, deleteContact];
+const getOperations = (type) => extraOperations.map(action => action[type]);
 
 const contactsSlice = createSlice({
     name: "contacts",
@@ -29,30 +33,21 @@ const contactsSlice = createSlice({
             state.items.splice(index, 1);        
         })
         .addMatcher(
-            isAnyOf(
-                fetchContacts.pending,
-                addContact.pending, 
-                deleteContact.pending, 
-            ), state => {
+            isAnyOf(...getOperations('pending')),
+            state => {
                 state.isLoading = true;
             }
         )
         .addMatcher(
-            isAnyOf(
-                fetchContacts.rejected,
-                addContact.rejected, 
-                deleteContact.rejected, 
-            ), (state, {payload}) => {
+            isAnyOf(...getOperations('rejected')),
+            (state, { payload }) => {
                 state.isLoading = false;
                 state.error = payload; 
             }
         )
         .addMatcher(
-            isAnyOf(
-                fetchContacts.fulfilled,
-                addContact.fulfilled, 
-                deleteContact.fulfilled, 
-            ), state => {
+            isAnyOf(...getOperations('fulfilled')),
+            state => {
                 state.isLoading = false;
                 state.error = null; 
             }
@@ -61,7 +56,5 @@ const contactsSlice = createSlice({
 });
 
 
-// Генератори екшенів
-// export const { createContact, removeContact } = contactsSlice.actions;
 // Редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;
