@@ -24,9 +24,10 @@ const contactsSlice = createSlice({
         .addCase(addContact.fulfilled, (state, {payload}) => {
             state.items.push(payload);            
         })        
-        .addCase(deleteContact.fulfilled, (state, {payload}) => {
-            state.items.push(payload);            
-        })     
+        .addCase(deleteContact.fulfilled, (state, { payload }) => {
+            const index = state.items.findIndex(contact => contact.id === payload.id);
+            state.items.splice(index, 1);        
+        })
         .addMatcher(
             isAnyOf(
                 fetchContacts.pending,
