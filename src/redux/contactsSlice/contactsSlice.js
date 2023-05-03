@@ -90,7 +90,4 @@ const persistConfig = {
 // Генератори екшенів
 // export const { createContact, removeContact } = contactsSlice.actions;
 // Редюсер слайсу
-export const contactsReducer = persistReducer(
-    persistConfig,
-    contactsSlice.reducer
-);
+export const contactsReducer = contactsSlice.reducer;
