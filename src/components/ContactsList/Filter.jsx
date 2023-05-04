@@ -1,5 +1,5 @@
 import React from "react";
-import { FilterBlock } from "./Filter.styled";
+import { FilterBlock, FilterInput, Label } from "./Filter.styled";
 import { useDispatch } from "react-redux";
 import { setFilter } from "redux/filterSlice/filterSlice";
 
@@ -13,8 +13,8 @@ const ContactsFilter = () => {
 
     return (
         <FilterBlock>
-            <label htmlFor="contacts-filter">Find contacts by name</label>
-            <input
+            <Label htmlFor="contacts-filter">Search contact by name</Label>
+            <FilterInput
                 id="contacts-filter"
                 type="text"
                 name="filter"

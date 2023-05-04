@@ -3,10 +3,12 @@ import Title from "./ContactTitle/ContactTitle";
 import ContactsForm from "./ContactsForm/ContactsForm";
 import ContactsFilter from "./ContactsList/Filter";
 import ContactsList from "./ContactsList/ContactsList";
+import PhoneBackground from "./PhoneBackground/PhoneBackground";
 import { useDispatch, useSelector } from "react-redux";
 import { selectContacts, selectError, selectIsLoading } from "redux/selectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchContacts } from "redux/operations";
+import PhonebookTitle from "./PhonebookTitle/PhonebookTitle";
 
 
 export default function App() {
@@ -16,20 +18,26 @@ export default function App() {
   const dispatch = useDispatch();
 
 
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+
+
   return (
+    <main>
+      <PhoneBackground />
       <Section>
-        <ContactsForm  />
-        <Title text="Contacts" />
+        <PhonebookTitle/>
+        <ContactsForm />
         <ContactsFilter />
         
         {isLoading && <p>Loading tasks...</p>}
         {error && <p>{error}</p>}
         {contacts.length > 0 && <ContactsList />}
-        
-      </Section>    
+          
+      </Section>        
+    </main>
     );
 };

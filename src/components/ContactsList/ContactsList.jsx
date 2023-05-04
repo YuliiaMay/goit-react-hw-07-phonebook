@@ -1,8 +1,9 @@
 import React from "react";
-import { Contact, DeleteContactBtn } from "./ContactsList.styled";
+import { ContactsBox } from "./ContactsList.styled";
 import { useDispatch, useSelector} from "react-redux";
 import { selectFilteredContacts } from "../../redux/selectors";
 import { deleteContact } from "redux/operations";
+import ContactItem from "components/ContactItem/ContactItem";
 
 
 
@@ -14,25 +15,21 @@ const ContactsList = () => {
     const handleDelete = id => dispatch(deleteContact(id));
 
     return (
-        <>
+        <ContactsBox>
             <ul>
                 {
-                    visableContacts.map(({ id, name, number }) => {
-                        return (
-                            <Contact key={id}>
-                                <span>{name}</span>
-                                <span>{number}</span>
-                                <DeleteContactBtn
-                                    type="button"
-                                    onClick={() => handleDelete(id)}
-                                
-                                >❌</DeleteContactBtn>
-                            </Contact>
-                        )
-                    })
+                    visableContacts.map(({ id, name, number }) => 
+                        <ContactItem 
+                            key={id}
+                            id={id}
+                            name={name}
+                            number={number}
+                            onClick={handleDelete}
+                        />
+                    )
                 }
             </ul>            
-        </>
+        </ContactsBox>
     )
 };
 
