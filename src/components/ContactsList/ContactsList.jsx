@@ -18,6 +18,7 @@ const ContactsList = () => {
             .filter(contact => contact.name.toLowerCase().includes(filterValue))
     }
 
+    
     const handleDelete = id => dispatch(deleteContact(id));
 
 
