@@ -1,10 +1,11 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "redux/operations";
 
+
 const extraOperations = [fetchContacts, addContact, deleteContact];
 const getOperations = (type) => isAnyOf(...extraOperations.map(action => action[type]));
 
-// redusers
+// operations redusers
 const pandingReduser = state => {
     state.isLoading = true;
 };
@@ -32,6 +33,7 @@ const deleteContactsSuccessReduser = (state, {payload}) => {
     state.items.splice(index, 1);   
 };
 
+
 const contactsSlice = createSlice({
     name: "contacts",
     initialState: {
@@ -49,5 +51,5 @@ const contactsSlice = createSlice({
 });
 
 
-// Редюсер слайсу
+// slice reduser
 export const contactsReducer = contactsSlice.reducer;
